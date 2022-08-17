@@ -27,6 +27,8 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,6 +66,12 @@ public class MainActivity extends AppCompatActivity {
         pause = findViewById(R.id.btn_pause);
 
         permisson();
+        Collections.sort(fileList, new Comparator<File>() {
+            @Override
+            public int compare(File o1, File o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
         init();
 
 
@@ -102,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
                     songMark++;
                     try {
                       ChangeSong(fileList.get(songMark));
+                      PauseInit();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -109,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
                     songMark = 0;
                     try {
                         ChangeSong(fileList.get(songMark));
+                        PauseInit();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -122,6 +132,8 @@ public class MainActivity extends AppCompatActivity {
                      songMark--;
                      try {
                          ChangeSong(fileList.get(songMark));
+                         PauseInit();
+
                      } catch (IOException e) {
                          e.printStackTrace();
                      }
@@ -129,6 +141,8 @@ public class MainActivity extends AppCompatActivity {
                      songMark = songList.length-1;
                      try {
                          ChangeSong(fileList.get(songMark));
+                         PauseInit();
+
                      } catch (IOException e) {
                          e.printStackTrace();
                      }
